@@ -1,14 +1,13 @@
-exports.handler = async function(event, context) {
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: "Method not allowed" }),
-      headers: { "Content-Type": "application/json" }
-    };
+export default async (req) => {
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {
-    const { prompt } = JSON.parse(event.body);
+    const { prompt } = await req.json();
     const apiKey = process.env.VITE_API_KEY || process.env.GEMINI_API_KEY;
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
@@ -20,18 +19,18 @@ exports.handler = async function(event, context) {
     });
 
     const data = await response.json();
-
-    return {
-      statusCode: 200,
+    
+    return new Response(JSON.stringify(data), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    };
+    });
 
   } catch (error) {
-    return {
-      statusCode: 500,
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: error.message })
-    };
+    });
   }
 };
+
+export const config = { path: "/api/chat" };

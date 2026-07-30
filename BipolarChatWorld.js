@@ -1,12 +1,16 @@
 async function callMyAI() {
   try {
-    // Calls your secure backend route instead of Google directly
-    const response = await fetch("/api/chat", {
+    // Directly call Gemini API using your environment variable key
+    const apiKey = import.meta.env.VITE_API_KEY;
+    
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ prompt: "Hello! Give me a quick greeting." })
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: "Hello! Give me a quick greeting." }] }]
+      })
     });
 
     const data = await response.json();
@@ -26,7 +30,6 @@ async function callMyAI() {
 }
 
 callMyAI();
-
 
 
 /**

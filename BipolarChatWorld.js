@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let resources = [];
     
     // Fetch JSON data from the same directory
-    fetch('/BipolarChatWorld.json')
+    fetch('BipolarChatWorld.json')
         .then(response => {
             if (!response.ok) throw new Error('Failed to load JSON');
             return response.json();

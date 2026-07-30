@@ -1,36 +1,3 @@
-async function callMyAI() {
-  try {
-    // Directly call Gemini API using your environment variable key
-    const apiKey = import.meta.env.VITE_API_KEY;
-    
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: "Hello! Give me a quick greeting." }] }]
-      })
-    });
-
-    const data = await response.json();
-    console.log("Full API Response:", data);
-
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    
-    if (reply) {
-      console.log("AI says:", reply);
-    } else {
-      console.error("The response structure was unexpected.");
-    }
-
-  } catch (error) {
-    console.error("Network or fetch error:", error);
-  }
-}
-
-callMyAI();
-
 
 /**
  * BipolarChatWorld.js

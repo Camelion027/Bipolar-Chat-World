@@ -1,8 +1,17 @@
-
 /**
  * BipolarChatWorld.js
- * Handles data fetching, searching, and UI rendering.
+ * Handles data fetching, searching, UI rendering, and global initializations.
  */
+
+// 1. Initialize Google Analytics configuration safely
+window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'G-061EEZXPWG');
+
+// 2. Handle scroll restoration immediately
+window.history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('results-area');
@@ -59,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let uppercaseOrgName = orgName.toUpperCase();
             
             card.innerHTML = `
-                <img src="https://images.weserv.nl/?url=flagcdn.com/w160/${res.countryCode.toLowerCase()}.png" class="flag-img" crossorigin="anonymous" alt="${res.country}">                <div class="org-name">${uppercaseOrgName}</div>
+                <img src="https://images.weserv.nl/?url=flagcdn.com/w160/${res.countryCode.toLowerCase()}.png" class="flag-img" crossorigin="anonymous" alt="${res.country}">
+                <div class="org-name">${uppercaseOrgName}</div>
                 <div class="country-sub">${res.country}</div>
             `;
             grid.appendChild(card);

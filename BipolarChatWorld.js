@@ -59,8 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let uppercaseOrgName = orgName.toUpperCase();
             
             card.innerHTML = `
-                <img src="https://flagcdn.com/w160/${res.countryCode.toLowerCase()}.png" class="flag-img" crossorigin="anonymous" alt="${res.country}">
-                <div class="org-name">${uppercaseOrgName}</div>
+                <img src="https://images.weserv.nl/?url=flagcdn.com/w160/${res.countryCode.toLowerCase()}.png" class="flag-img" crossorigin="anonymous" alt="${res.country}">                <div class="org-name">${uppercaseOrgName}</div>
                 <div class="country-sub">${res.country}</div>
             `;
             grid.appendChild(card);

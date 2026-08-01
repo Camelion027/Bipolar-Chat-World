@@ -87,3 +87,15 @@ window.onload = function() {
 document.addEventListener('dragstart', (e) => {
     e.preventDefault();
 }, false);
+
+// Prevent default scrolling and tab behavior for specific navigation keys
+window.addEventListener('keydown', (e) => {
+    const keysToBlock = ['PageDown', 'PageUp', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab', ' '];
+    
+    // Check if the pressed key is in our blocklist
+    if (keysToBlock.includes(e.key)) {
+        // Allow typing spaces or using arrows inside the search input if needed, 
+        // but block it everywhere else (or block it completely if you want total lockdown)
+        e.preventDefault();
+    }
+});
